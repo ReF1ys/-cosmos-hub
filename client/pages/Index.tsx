@@ -455,8 +455,7 @@ export default function Index() {
             </div>
             <div className="relative">
               <img
-                src={`${base}illustrations/card-quality.png`
-                }
+                src={`${base}illustrations/save.png`}
                 alt="Качество и контроль"
                 className="w-full max-w-md mx-auto img-glow animate-float-slow"
                 loading="lazy"

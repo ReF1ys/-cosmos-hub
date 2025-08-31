@@ -1,0 +1,12 @@
+{
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "dist/spa",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/:match*", "destination": "/api/:match*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "github": {
+    "silent": true
+  }
+}
