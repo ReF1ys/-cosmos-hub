@@ -116,4 +116,11 @@
   .img-glow {
     filter: drop-shadow(0 8px 24px rgba(76, 175, 80, 0.25));
   }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }

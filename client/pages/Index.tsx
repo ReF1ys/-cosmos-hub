@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export default function Index() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -85,7 +86,7 @@ export default function Index() {
           src={imgSrc}
           alt={alt}
           className="w-20 md:w-24 h-auto object-contain select-none pointer-events-none img-glow drop-shadow-xl"
-          loading="eager"
+          loading="lazy"
           decoding="async"
           draggable={false}
           onError={() => setImgSrc(`data:image/svg+xml;utf8,${encodeURIComponent(fallbackSvg)}`)}
@@ -118,8 +119,14 @@ export default function Index() {
   const HeadingOrbit = ({ anchorRef, layerRef }: { anchorRef: React.RefObject<HTMLElement>, layerRef: React.RefObject<HTMLElement> }) => {
     const [items, setItems] = useState<{ x: number; y: number; type: ItemType; delay: number }[]>([]);
     const [center, setCenter] = useState<{ cx: number; cy: number }>({ cx: 0, cy: 0 });
+    const isDesktop = useMediaQuery("(min-width: 768px)");
 
     useEffect(() => {
+      if (!isDesktop) {
+        // On mobile, do not render heavy orbit items
+        setItems([]);
+        return;
+      }
       const compute = () => {
   const el = anchorRef.current as HTMLElement | null;
   const layer = layerRef.current as HTMLElement | null;
@@ -128,7 +135,7 @@ export default function Index() {
   const layerRect = layer.getBoundingClientRect();
   const cx = rect.left - layerRect.left + rect.width / 2;
   const cy = rect.top - layerRect.top + rect.height / 2;
-  const count = 16; // чуть реже, больше воздуха
+  const count = 10; // меньше элементов для производительности
   const offsetX = 110; // больше радиус по X
   const offsetY = 80;  // больше радиус по Y
   const iconMargin = 72; // дальше от текста
@@ -157,7 +164,7 @@ export default function Index() {
     setCenter({ cx, cy });
       };
       compute();
-      const onResize = () => compute();
+  const onResize = () => compute();
       window.addEventListener("resize", onResize);
       const t = setTimeout(compute, 200); // пересчет после шрифтов/анимаций
       let ro: ResizeObserver | null = null;
@@ -171,7 +178,7 @@ export default function Index() {
         clearTimeout(t);
         ro?.disconnect();
       };
-    }, []);
+  }, [isDesktop]);
 
     return (
   <div aria-hidden className="pointer-events-none select-none absolute inset-0 z-20 overflow-visible">
@@ -226,17 +233,21 @@ export default function Index() {
   {/* Hero Section */}
   <section ref={heroSectionRef} className="relative min-h-screen flex items-center justify-center pt-16 overflow-visible">
   <div className="absolute inset-0 bg-gradient-to-br from-soft-cream via-white to-green-50 z-0"></div>
-        {/* Hero illustration as full-bleed background */}
-        <img
-          src={`${base}illustrations/hero-illustration.png`}
-          alt=""
-          aria-hidden
-          className="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-50 z-0"
-          loading="eager"
-          decoding="async"
-        />
-        {/* Orbit layer above background but below text */}
-        <HeadingOrbit anchorRef={heroContentRef} layerRef={heroSectionRef} />
+        {/* Hero illustration as full-bleed background; hide on small screens for perf */}
+        <div className="hidden md:block">
+          <img
+            src={`${base}illustrations/hero-illustration.png`}
+            alt=""
+            aria-hidden
+            className="pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-50 z-0"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        {/* Orbit layer above background but below text; hide on small screens */}
+        <div className="hidden md:block">
+          <HeadingOrbit anchorRef={heroContentRef} layerRef={heroSectionRef} />
+        </div>
   {/* Section-level floaters removed to keep icons around heading only */}
 
   <div className="relative z-30 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -453,11 +464,11 @@ export default function Index() {
                 </a>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative hidden md:block">
               <img
-                src={`${base}illustrations/save.png`}
+                src={`${base}illustrations/card-quality.png`}
                 alt="Качество и контроль"
-                className="w-full max-w-md mx-auto img-glow animate-float-slow"
+                className="w-full max-w-md mx-auto img-glow md:animate-float-slow"
                 loading="lazy"
                 decoding="async"
               />
@@ -527,8 +538,8 @@ export default function Index() {
 
       {/* Large CTA Section */}
       <section id="cta" className="relative py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-fresh-green to-green-600"></div>
-        <div className="absolute inset-0 bg-black/20"></div>
+  <div className="absolute inset-0 bg-gradient-to-r from-fresh-green to-green-600"></div>
+  <div className="absolute inset-0 bg-black/20"></div>
         
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div 
