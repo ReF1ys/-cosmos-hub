@@ -458,11 +458,7 @@ export default function Index() {
                   </div>
                 </div>
               ))}
-              <div className="pt-2">
-                <a href="#contact" className="inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-fresh-green text-white hover:bg-green-600 transition-all shadow-lg">
-                  Оставить заявку
-                </a>
-              </div>
+
             </div>
             <div className="relative hidden md:block">
               <img
@@ -620,25 +616,12 @@ export default function Index() {
               </ul>
             </div>
             
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Соцсети</h3>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-fresh-green transition-colors">
-                  <span className="text-2xl">📱</span>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-fresh-green transition-colors">
-                  <span className="text-2xl">📺</span>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-fresh-green transition-colors">
-                  <span className="text-2xl">✈️</span>
-                </a>
-              </div>
-            </div>
+
           </div>
           
           <div className="border-t border-gray-800 mt-12 pt-8 text-center">
             <p className="text-gray-400">
-              © 2024 Остатки Сладки. Все права защищены.
+              © 2025 Остатки Сладки. Все права защищены.
             </p>
           </div>
         </div>
