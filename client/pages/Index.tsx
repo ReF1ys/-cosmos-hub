@@ -309,7 +309,13 @@ export default function Index() {
               {
                 icon: "♻️",
                 title: "Экология",
-                description: "Меньше еды на свалке — больше заботы о планете",
+                description: (
+                  <>
+                    Меньше еды на свалке — больше заботы
+                    <br />
+                    о планете
+                  </>
+                ),
                 delay: 0
               },
               {
@@ -622,6 +628,18 @@ export default function Index() {
           <div className="border-t border-gray-800 mt-12 pt-8 text-center">
             <p className="text-gray-400">
               © 2025 Остатки Сладки. Все права защищены.
+            </p>
+            <p className="text-gray-400 mt-2">
+              Project by
+              {" "}
+              <a
+                href="https://lumelabs.tech/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-fresh-green hover:underline"
+              >
+                Lumelab.tech
+              </a>
             </p>
           </div>
         </div>
